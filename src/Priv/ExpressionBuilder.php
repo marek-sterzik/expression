@@ -26,28 +26,70 @@ class ExpressionBuilder
         switch ($symbol->type()) {
             case 'multinary':
                 if ($symbol->data("i") == 0) {
-                    return $this->pushOperatorFirst($symbol->data("uuid"), $symbol->data("alias"), $symbol->data("priority"), $symbol->data("arity"), $symbol->data("n"));
+                    return $this->pushOperatorFirst(
+                        $symbol->data("uuid"),
+                        $symbol->data("alias"),
+                        $symbol->data("priority"),
+                        $symbol->data("arity"),
+                        $symbol->data("n")
+                    );
                 } else {
-                    return $this->pushOperatorNext($symbol->data("uuid"), $symbol->data("i"));
+                    return $this->pushOperatorNext(
+                        $symbol->data("uuid"),
+                        $symbol->data("i")
+                    );
                 }
             case 'variadic':
-                return $this->pushVariadicOperator($symbol->data("uuid"), $symbol->data("alias"), $symbol->data("priority"), $symbol->data("arity"));
+                return $this->pushVariadicOperator(
+                    $symbol->data("uuid"),
+                    $symbol->data("alias"),
+                    $symbol->data("priority"),
+                    $symbol->data("arity")
+                );
             case 'prefix':
-                return $this->pushPrefix($symbol->data("alias"), $symbol->data("priority"), $symbol->data("arity"));
+                return $this->pushPrefix(
+                    $symbol->data("alias"),
+                    $symbol->data("priority"),
+                    $symbol->data("arity")
+                );
             case 'postfix':
-                return $this->pushPostfix($symbol->data("alias"), $symbol->data("priority"));
+                return $this->pushPostfix(
+                    $symbol->data("alias"),
+                    $symbol->data("priority")
+                );
             case '(':
-                return $this->pushParenthesis($symbol->data("uuid"), $symbol->data("alias"), $symbol->data("empty"));
+                return $this->pushParenthesis(
+                    $symbol->data("uuid"),
+                    $symbol->data("alias"),
+                    $symbol->data("empty")
+                );
             case 'prefix(':
-                return $this->pushPrefixIndex($symbol->data("uuid"), $symbol->data("alias"), $symbol->data("priority"), $symbol->data("arity"), $symbol->data("empty"));
+                return $this->pushPrefixIndex(
+                    $symbol->data("uuid"),
+                    $symbol->data("alias"),
+                    $symbol->data("priority"),
+                    $symbol->data("arity"),
+                    $symbol->data("empty")
+                );
             case 'postfix(':
-                return $this->pushPostfixIndex($symbol->data("uuid"), $symbol->data("alias"), $symbol->data("priority"), $symbol->data("empty"));
+                return $this->pushPostfixIndex(
+                    $symbol->data("uuid"),
+                    $symbol->data("alias"),
+                    $symbol->data("priority"),
+                    $symbol->data("empty")
+                );
             case ')':
-                return $this->pushCloseParenthesis($symbol->data("uuids"));
+                return $this->pushCloseParenthesis(
+                    $symbol->data("uuids")
+                );
             case 'constant':
-                return $this->pushConstant($symbol->data("value"));
+                return $this->pushConstant(
+                    $symbol->data("value")
+                );
             case 'variable':
-                return $this->pushVariable($symbol->data("name"));
+                return $this->pushVariable(
+                    $symbol->data("name")
+                );
             default:
                 throw new ParserException("unknown symbol");
         }
@@ -92,7 +134,11 @@ class ExpressionBuilder
     {
         $this->operatorModeExpected();
         $this->pointerToBlocking();
-        if ($this->pointer === null || $this->pointer->id() !== $id || $this->pointer->getNumSubexpressions() != $i + 1) {
+        if (
+            $this->pointer === null ||
+            $this->pointer->id() !== $id ||
+            $this->pointer->getNumSubexpressions() != $i + 1
+        ) {
             throw new ParserException("cannot add part of a multinary operator: operator is not accessible");
         }
         $this->valueMode = true;
@@ -145,7 +191,13 @@ class ExpressionBuilder
     {
         #first test for an empty parenthesis
         $emptyPar = false;
-        if ($this->valueMode && $this->pointer !== null && $this->pointer->isParenthesis() && $this->pointer->allowEmpty() && in_array($this->pointer->id(), $ids)) {
+        if (
+            $this->valueMode &&
+            $this->pointer !== null &&
+            $this->pointer->isParenthesis() &&
+            $this->pointer->allowEmpty() &&
+            in_array($this->pointer->id(), $ids)
+        ) {
             $n = $this->pointer->getNumSubexpressions();
             if ($this->pointer->getParenthesisType() == "postfix") {
                 $emptyPar = $n <= 1;

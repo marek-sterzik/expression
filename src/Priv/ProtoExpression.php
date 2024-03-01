@@ -151,46 +151,73 @@ class ProtoExpression
 
     public static function createPrefix($alias, $priority, $arity)
     {
-        return new static("prefix", ["alias" => $alias, "priority" => $priority, "arity" => $arity]);
+        return new static(
+            "prefix",
+            ["alias" => $alias, "priority" => $priority, "arity" => $arity]
+        );
     }
 
     public static function createPostfix($alias, $priority)
     {
-        return new static("postfix", ["alias" => $alias,"priority" => $priority]);
+        return new static(
+            "postfix",
+            ["alias" => $alias,"priority" => $priority]
+        );
     }
 
     public static function createOperator($id, $alias, $priority, $arity, $n)
     {
-        return new static("operator", ["id" => $id, "alias" => $alias,"priority" => $priority, "arity" => $arity, "parts" => $n]);
+        return new static(
+            "operator",
+            ["id" => $id, "alias" => $alias,"priority" => $priority, "arity" => $arity, "parts" => $n]
+        );
     }
 
     public static function createVariadicOperator($id, $alias, $priority, $arity)
     {
-        return new static("variadic", ["id" => $id, "alias" => $alias,"priority" => $priority, "arity" => $arity]);
+        return new static(
+            "variadic",
+            ["id" => $id, "alias" => $alias,"priority" => $priority, "arity" => $arity]
+        );
     }
 
     public static function createParenthesis($id, $alias, $allowEmpty)
     {
-        return new static("par-value", ["id" => $id, "alias" => $alias, "empty" => $allowEmpty]);
+        return new static(
+            "par-value",
+            ["id" => $id, "alias" => $alias, "empty" => $allowEmpty]
+        );
     }
 
     public static function createPrefixIndex($id, $alias, $priority, $arity, $allowEmpty)
     {
-        return new static("par-prefix", ["id" => $id, "alias" => $alias, "priority" => $priority, "arity" => $arity, "empty" => $allowEmpty]);
+        return new static(
+            "par-prefix",
+            ["id" => $id, "alias" => $alias, "priority" => $priority, "arity" => $arity, "empty" => $allowEmpty]
+        );
     }
 
     public static function createPostfixIndex($id, $alias, $priority, $allowEmpty)
     {
-        return new static("par-postfix", ["id" => $id, "alias" => $alias, "priority" => $priority, "empty" => $allowEmpty]);
+        return new static(
+            "par-postfix",
+            ["id" => $id, "alias" => $alias, "priority" => $priority, "empty" => $allowEmpty]
+        );
     }
 
     public static function createVariable($name)
     {
-        return new static("variable", ["name" => $name]);
+        return new static(
+            "variable",
+            ["name" => $name]
+        );
     }
 
     public static function createConstant($constant)
     {
-        return new static("constant", ["value" => $constant]);
+        return new static(
+            "constant",
+            ["value" => $constant]
+        );
     }
 }

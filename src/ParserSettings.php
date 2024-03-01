@@ -13,8 +13,9 @@ use Exception;
  */
 final class ParserSettings
 {
-    private static $presetClass = "ParserPreset";
     use Priv\DefaultStorageTrait;
+
+    private static $presetClass = "ParserPreset";
 
     private $cs; //case sensitive mode;
     private $cp; //current priority
@@ -323,7 +324,8 @@ final class ParserSettings
     }
 
     /*
-     * Setup default postprocessing for operations (will be used if no postprocessing is defined for the particular operation).
+     * Setup default postprocessing for operations
+     * (will be used if no postprocessing is defined for the particular operation).
      */
     public function setDefaultPostprocessOp($fun)
     {

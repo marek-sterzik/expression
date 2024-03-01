@@ -9,9 +9,10 @@ use Exception;
  */
 class Postprocessor
 {
+    use Priv\DefaultStorageTrait;
+
     private $pf;
     private static $presetClass = "PostprocessorPreset";
-    use Priv\DefaultStorageTrait;
 
     public function __construct()
     {

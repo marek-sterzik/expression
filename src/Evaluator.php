@@ -11,9 +11,10 @@ use ReflectionFunction;
 
 final class Evaluator
 {
+    use Priv\DefaultStorageTrait;
+
     private $ops;
     private static $presetClass = "EvaluatorPreset";
-    use Priv\DefaultStorageTrait;
 
     public function __construct()
     {
