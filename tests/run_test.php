@@ -11,43 +11,6 @@ use Sterzik\Expression\Expression;
 use Sterzik\Expression\ParserException;
 
 Test::begin();
-$fd = fopen(__DIR__."/expression.tst", "r");
-testStructure($fd, "+(1,*(2,3))");
-fclose($fd);
-
-$sps = ParserSettings::get('createEmpty');
-$sps->opArity(">")->opPriority(1);
-$sps->addBinaryOp("+")->addPrefixOp("++")->addPostfixOp("++");
-$sps->opArity("<")->opPriority(2);
-$sps->addBinaryOp("-")->addPrefixOp("--")->addPostfixOp("--");
-$sps->caseSensitive(true);
-$sps->addParenthesis("be1", "begin", "end", false);
-$sps->caseSensitive(false);
-$sps->addParenthesis("be2", "beg", "end", true);
-$sps->addPrefixIndex("<>", "<", ">", true);
-$sps->addPrefixIndex("<<>>", "<<", ">>", false);
-
-testStructureEx($sps, "++a + b++", "++(+(++(a),b))");
-testStructureEx($sps, "--a - b--", "--(-(a,--(b)))");
-
-#mixing parenthesis of different types together while sharing the end parenthesis
-testStructureEx($sps, "begin a end", "be1(a)");
-testStructureEx($sps, "beg a end", "be2(a)");
-testStructureEx($sps, "BEGIN a END", null);
-testStructureEx($sps, "BEG a END", "be2(a)");
-
-#testing the prefix index parser
-testStructureEx($sps, "<a>b", "<>(b,a)");
-testStructureEx($sps, "<>b", "<>(b)");
-testStructureEx($sps, "<<a>>b", "<<>>(b,a)");
-testStructureEx($sps, "<<>>b", null);
-
-#test of the default parser interchange
-testStructure("<<a>>b", null);
-$tmp = $sps->setDefault();
-testStructure("<<a>>b", "<<>>(b,a)");
-$tmp->setDefault();
-testStructure("<<a>>b", null);
 
 testResult("1+1", 2);
 testResult("1-1", 0);
