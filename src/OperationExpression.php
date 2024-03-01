@@ -52,7 +52,7 @@ class OperationExpression extends Expression implements ArrayAccess, Countable, 
     /*
      * The countable interface: count() returns the number of arguments
      */
-
+    #[\ReturnTypeWillChange]
     public function count()
     {
         return count($this->subs);
@@ -61,6 +61,7 @@ class OperationExpression extends Expression implements ArrayAccess, Countable, 
     /*
      * Iteration over this object iterates over the arguments of that operation
      */
+    #[\ReturnTypeWillChange]
     public function getIterator()
     {
         return new ArrayIterator($this->subs);
@@ -69,20 +70,24 @@ class OperationExpression extends Expression implements ArrayAccess, Countable, 
     /*
      * The ArrayAccess interface: indexing this object is the same as indexing the arguments.
      */
+    #[\ReturnTypeWillChange]
     public function offsetExists($offset)
     {
         return isset($this->subs[$offset]);
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         return isset($this->subs[$offset]) ? $this->subs[$offset] : null;
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetSet($offset, $value)
     {
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetUnset($offset)
     {
     }

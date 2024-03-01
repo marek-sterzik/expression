@@ -1,0 +1,28 @@
+#!/bin/bash
+
+cd "$(dirname "$(which "$0")")/.."
+
+commands="phpcs phpunit"
+
+run () {
+    bin="bin/$1"
+    name="$1"
+    if "$bin" -q; then
+        echo -e "$name$2"'\033[32mOk\033[m'
+    else
+        echo -e "$name$2"'\033[31mFailed\033[m'
+    fi
+}
+
+max_len=0
+for cmd in $commands; do
+    len="${#cmd}"
+    if [ "$len" -gt "$max_len" ]; then
+        max_len="$len"
+    fi
+done
+for cmd in $commands; do
+    len="`expr "$max_len" - "${#cmd}" + 2`"
+    sp="`perl -E "say ' ' x $len"`"
+    run "$cmd" "$sp"
+done

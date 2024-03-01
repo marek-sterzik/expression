@@ -1,0 +1,10 @@
+#!/bin/bash
+
+cd "$(dirname "$(which "$0")")/.."
+
+flags=""
+if [ "$1" == "--quiet" -o "$1" == "-q" ]; then
+    flags="$flags --no-output"
+fi
+
+vendor/bin/phpunit $flags
