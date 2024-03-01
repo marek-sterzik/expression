@@ -60,7 +60,7 @@ The evaluate method just substitutes constants to that expression and calculates
 
 ```php
 $expr = $parser->parse("a+b*(c+d)");
-$vars = array("a" => 1, "b" => 2, "c" => 3, "d" => 4);
+$vars = ["a" => 1, "b" => 2, "c" => 3, "d" => 4];
 $result = $expr->evaluate($vars);
 ```
 
@@ -116,7 +116,7 @@ By default, the name of the operator will be passed even to the evaluator. So if
 
 ```php
 $ps->addOp("+");
-$ps->addOp("plus","+");
+$ps->addOp("plus", "+");
 ```
 
 Now both operators "+" and "plus" passes the same operator "+" to the evaluator. In the evaluator it is sufficient to define one function for "+" and you don't need to define the same code for "plus".
@@ -148,7 +148,7 @@ $parser2 = new Parser(); #this parser uses the original parser settings
 If you want to define custom constants, you may use this method of ```ParserSettings```:
 
 ```php
-$parserSettings->addConstant("true",true);
+$parserSettings->addConstant("true", true);
 ```
 
 Such a parser will evaluate the identifier ```true``` as the php value of true.
@@ -164,8 +164,8 @@ $parserSettings->addPostfixOp("--");
 If you want to define the same operator both, as prefix and even as a postfix operator, you need to distinguish them by the name passed to the evaluator:
 
 ```php
-$parserSettings->addPrefixOp("++x","++");
-$parserSettings->addPostfixOp("x++","++");
+$parserSettings->addPrefixOp("++x", "++");
+$parserSettings->addPostfixOp("x++", "++");
 ```
 
 The string passed to the evaluator may be any string with no other restrictions. Therefore, while the string "++x" **may not** be used as an operator, it **may** be used as the alias passed to the evaluator. 
@@ -175,7 +175,7 @@ The string passed to the evaluator may be any string with no other restrictions.
 Multinary operators are operators which take more than two arguments. The classical c operator ```?:``` is a perfect example of such. 
 
 ```php
-$parserSettings->addMultinaryOp("?:","?",":");
+$parserSettings->addMultinaryOp("?:", "?", ":");
 ```
 
 When calling a multinary operator, the first argument is the alias passed to the evaluator and is mandatory here.
@@ -193,7 +193,7 @@ would evaluate the expression ```a,b,c``` as an operator ```,``` taking three ar
 ### Defining parenthesis
 
 ```php
-$parserSettings->addParenthesis("()","(",")",false);
+$parserSettings->addParenthesis("()", "(", ")", false);
 ```
 
 Arguments of ```addParenthesis```:
@@ -209,13 +209,13 @@ Arguments of ```addParenthesis```:
 You may even define parenthesis as an prefix/postfix unary operator. For example a standard function call in many languages may be understood as a postfix parenthesis/index. For example, the following will define a standard function call operator:
 
 ```php
-$parserSettings->addPostfixIndex("fn()","(",")",true);
+$parserSettings->addPostfixIndex("fn()", "(", ")", true);
 ```
 
 To define a prefix index, you may for example run:
 
 ```php
-$parserSettings->addPrefixIndex("<<>>","<<",">>",false);
+$parserSettings->addPrefixIndex("<<>>", "<<", ">>", false);
 ```
 
 which would define a special casting-like operator. An expression using that operator may look like: ```<<A>>B```
@@ -226,31 +226,31 @@ which would define a special casting-like operator. An expression using that ope
 
 The parser may be run in two modes depending how it will act on an parsing error:
 
- 1. (default) return ```NULL``` and the error message is available through calling the method ```getLastError()```.
+ 1. (default) return ```null``` and the error message is available through calling the method ```getLastError()```.
  2. Throw an exception of class ```ParserException``` if an error occurs.
   
 The parsing error mode may be set dynamically for each request or passed directly by the constructor.
 
-#### Handling errors by returning NULL
+#### Handling errors by returning null
 
 ```php
-$parser = new Parser($parserSettings,false); #creates a parser NOT throwing exceptions
+$parser = new Parser($parserSettings, false); #creates a parser NOT throwing exceptions
 $expr = $parser->parse($expressionString);
-if($expr === NULL){
-	echo "parser error: ".$parser->getLastError()."\n";
-	return;
+if ($expr === null) {
+    echo "parser error: " . $parser->getLastError() . "\n";
+    return;
 } 
 ```
  
 #### Handling error by throwing an exception
 
 ```php
-$parser = new Parser($parserSettings,true); #creates a parser in exception throwing mode
-try{
-	$expr = $parser->parse($expressionString);
-}catch(ParserException $e){
-	echo "parser error: ".$e->getMessage()."\n";
-	return;
+$parser = new Parser($parserSettings, true); #creates a parser in exception throwing mode
+try {
+    $expr = $parser->parse($expressionString);
+} catch(ParserException $e) {
+    echo "parser error: " . $e->getMessage() . "\n";
+    return;
 }
 ```
 
@@ -259,7 +259,7 @@ try{
 ```php
 $parser = new Parser($parserSettings);
 $parser->throwExceptions(true); #parser in exception throwing mode
-$parser->throwExceptions(false); #parser in "return NULL" mode
+$parser->throwExceptions(false); #parser in "return null" mode
 ```
  
 ## Manipulating parsed expressions
@@ -281,9 +281,9 @@ Once the expression is successfully parsed, an object of a class ```Expression``
 Each constant expression represent one constant. For example, if you parse the expression ```12```, it will result in a constant expression having the value of 12. Accessing attributes of that type:
 
 ```php
-if($expr->type() == "const"){
-	$value = $expr->value();
-	echo "The expression represents a constant with a value of: ".$value."\n";
+if ($expr->type() == "const") {
+    $value = $expr->value();
+    echo "The expression represents a constant with a value of: " . $value . "\n";
 }
 ```
 
@@ -301,9 +301,9 @@ Variable expressions represent a variable. Each variable has a name. The name ma
 Variable expressions may be accessed this way:
 
 ```php
-if($expr->type() == "var"){
-	$name = $expr->name();
-	echo "The expression represents a variable with a name: ".$name."\n";
+if ($expr->type() == "var") {
+    $name = $expr->name();
+    echo "The expression represents a variable with a name: ".$name."\n";
 }
 ```
 
@@ -318,13 +318,13 @@ Operation expressions represent any kind of operations. Each operation has:
 Operation expressions may be accessed in this way:
 
 ```php
-if($expr->type() == "op"){
-	$identifier = $expr->op();
-	$arguments = $expr->arguments();
-	#easy accessing arguments:
-	foreach($expr as $argument){
-		#do something with each argument
-	}
+if ($expr->type() == "op") {
+    $identifier = $expr->op();
+    $arguments = $expr->arguments();
+    #easy accessing arguments:
+    foreach ($expr as $argument) {
+        #do something with each argument
+    }
 
 }
 ```
@@ -335,10 +335,10 @@ if($expr->type() == "op"){
 Creating own expressions is mostly useful when doing expression postprocessing (see later)
 
 ```php
-$constant = Expression::create("const",15);
-$variable = Expression::create("var","abc");
-$operation = Expression::create("op","+",$constant,$variable); #alternative #1
-$operation = Expression::create("op","+",array($constant,$variable)); #alternative #2
+$constant = Expression::create("const", 15);
+$variable = Expression::create("var", "abc");
+$operation = Expression::create("op", "+", $constant, $variable); #alternative #1
+$operation = Expression::create("op", "+", [$constant, $variable]); #alternative #2
 ```
 
 
@@ -369,7 +369,7 @@ $expr = Expression::restoreJson($dataJson);
 $expr = Expression::restoreBase64($dataB64);
 ```
 
-The restoring functions are checking the correctness of the data given to restore. If they will be malformed, a ```NULL``` will be returned instead of an expression.
+The restoring functions are checking the correctness of the data given to restore. If they will be malformed, a ```null``` will be returned instead of an expression.
 
 ## Evaluating expressions detailed
 
@@ -399,7 +399,7 @@ If you will build a custom evaluator, it is a good idea to begin with the empty 
 To use the evaluator in one single place:
 
 ```php
-$result = $expr->evaluate($varObject,$evaluator);
+$result = $expr->evaluate($varObject, $evaluator);
 ```
 
 You may also make the evaluator default:
@@ -414,8 +414,8 @@ $expr->evaluate($varObject); # $evaluator need not be passed, because it is defa
 #### Defining constant evaluation
 
 ```php
-$evaluator->defConstant(function($const){
-	return $const;
+$evaluator->defConstant(function ($const) {
+    return $const;
 });
 ```
 
@@ -425,8 +425,8 @@ This is the typical example of evaluating constants. In fact, you don't need to 
 #### Defining variable evaluation
 
 ```php
-$evaluator->defVar(function($var,$varObject){
-	return $varObject[$var];
+$evaluator->defVar(function ($var, $varObject) {
+    return $varObject[$var];
 });
 ```
 
@@ -436,16 +436,20 @@ Even in this case, the function above is the default how to evaluate variable. Y
 #### Defining operations
 
 ```php
-$evaluator->defOp("+",function($a,$b){
-	return $a+$b;
+$evaluator->defOp("+", function ($a, $b) {
+    return $a + $b;
 });
 ```
 
 It is even possible to use multiple functions for the same operation. If this is the case, for a particular operation the function, which fits the number of operation arguments best will be choosen. So for example, you may define:
 
 ```php
-$evaluator->defOp("-",function($a,$b){ return $a-$b; });
-$evaluator->defOp("-",function($a){return - $a;});
+$evaluator->defOp("-", function ($a, $b) {
+    return $a-$b;
+});
+$evaluator->defOp("-", function ($a) {
+    return - $a;
+});
 ```
 
 This will cause to use the first function for binary minus, but the second function for unary minus. This feature allows to distinguish operations not only by its name (which is "-" in both cases above) but even by the number of its arguments. While this feature should work correctly in simple examples (like this), it is not a good idea to rely on it in more complicated examples. You may still distinguish operations directly in the parser, which is definitely safer for more complicated situations.
@@ -453,9 +457,9 @@ This will cause to use the first function for binary minus, but the second funct
 Sometimes, you may want to define a default operation handler:
 
 ```php
-$evaluator->defOpDefault(function($operation,...$arguments){
-	#do something with the operation and theirs arguments
-	return $result
+$evaluator->defOpDefault(function ($operation, ...$arguments) {
+    #do something with the operation and theirs arguments
+    return $result
 });
 ```
 
@@ -464,17 +468,17 @@ The default handler is invoked if no particular handler for the given operation 
 In some cases, it would be useful to pass the operation not only in the default case, but even for particular operations. This could be done by passing `true` as the third argument of `defOp`:
 
 ```php
-$evaluator->defOp("-",function($op,$a,$b){
-	#do something depending on $op
-	return $result;
-},true);
+$evaluator->defOp("-", function ($op, $a, $b) {
+    #do something depending on $op
+    return $result;
+}, true);
 ```
 
 Some operations may be more tricky. For example the standard `?:` operator. This operator guarantees, that the second argument is evaluated **only** if the first argument is evaluated as `true` and the third argument is evaluated **only** if the first argument is evaluated as `false`. This is not possible to deal with if method `defOp()` is used, because it all the time evaluates all arguments. For this reason, there is a method `defOpEx`:
 
 ```php
-$evaluator->defOpEx("?:",function($cond,$ifTrue,$ifFalse){
-	return $cond->value()?$ifTrue->value():$ifFalse->value();
+$evaluator->defOpEx("?:", function ($cond, $ifTrue, $ifFalse) {
+    return $cond->value() ? $ifTrue->value() : $ifFalse->value();
 });
 ``` 
 
@@ -507,18 +511,18 @@ There are two methods, how to build a custom L-value:
  While the first method is quite clear, we will show how to use the second method:
  
 ```php
- function createVariableLValue($varName,$varObject)
+ function createVariableLValue($varName, $varObject)
  {
- 	$builder = new LValueBuilder();
- 	$builder->value(function() use ($varName,$varObject){
- 		return $varObject[$varName];
- 	});
- 	$builder->assign(function($value) use ($varName,$varObject){
- 		$varObject[$varName] = $value;
- 	});
- 	
- 	return $builder->getLValue();
- 	
+     $builder = new LValueBuilder();
+     $builder->value(function () use ($varName, $varObject) {
+         return $varObject[$varName];
+     });
+     $builder->assign(function ($value) use ($varName, $varObject) {
+         $varObject[$varName] = $value;
+     });
+     
+     return $builder->getLValue();
+     
  }
 ``` 
 
@@ -527,9 +531,9 @@ There are two methods, how to build a custom L-value:
 You may use L-values as result of any operation in the evaluator. So using the function `createVariableLValue()` defined above, you may assign L-values for example for variables:
 
 ```php
- $evaluator->defVar(function($var,$varObject){
- 	return createVariableLValue($varName,$varObject);
- });
+$evaluator->defVar(function ($var, $varObject) {
+    return createVariableLValue($varName, $varObject);
+});
 ```
 
 **Note:** The example above will work only if `$varObject` will be an object reference. Because to be able to handle assignments, you need to pass the variable object by reference. For this reason, there is a class `Variables`, which act almost like an array, but it is an object, so it is passed as an reference. An example how to use the class `Variables` follows:
@@ -538,8 +542,8 @@ You may use L-values as result of any operation in the evaluator. So using the f
 $varObject = new Variables(["a" => 1, "b" => 2, "c" => 3]);
 $varObject["a"] = 2;
 unset($varObject["c"]);
-foreach($varObject as $variable => $value){
-	#do something for all variables and its values
+foreach($varObject as $variable => $value) {
+    #do something for all variables and its values
 }
 $varArray = $varObject->asArray(); #convert back to an ordinary array
 ```
@@ -547,23 +551,23 @@ $varArray = $varObject->asArray(); #convert back to an ordinary array
 If you want to define an operator, which will assign a value, you may proceed as follows:
 
 ```php
-$evaluator->defOpEx("=",function($a,$b){
-	$a->assign($b->value());
+$evaluator->defOpEx("=", function ($a, $b) {
+    $a->assign($b->value());
 });
 ```
 
 **Note:** The variables `$a` and `$b` does not contain L-values, but L-value wrappers. In fact, before you may access the L-value, you need to evaluate the appropriate subexpression. And this is the difference between l-values and l-value wrappers: l-value wrappers have the same methods like l-values, but calling of them will have the side effect of evaluating the subexpression. It means, that these two pieces of code do different things:
 
 ```php
- #piece #1
- $evaluator->defOpEx("some_unary_operator",function($arg){
- 	return $arg->value() + $arg->value();
- });
- #piece #2
- $evaluator->defOpEx("someoperator",function($arg){
- 	$arg = $arg->lvalue();
- 	return $arg->value() + $arg->value();
- });
+#piece #1
+$evaluator->defOpEx("some_unary_operator", function ($arg) {
+    return $arg->value() + $arg->value();
+});
+#piece #2
+$evaluator->defOpEx("someoperator", function ($arg) {
+    $arg = $arg->lvalue();
+    return $arg->value() + $arg->value();
+});
 
 ```
 
@@ -572,31 +576,30 @@ In the first piece, the subexpression of the unary operator will be evaluated tw
 It is important to mention, that calling `$argument->lvalue()` will produce an L-value even in case the evaluation of a subexpression will produce an ordinary value. It will be simply converted to an L-value with only the `value()` method defined. But it is also possible to control what happens if some unsupported method is called on this lvalue:
 
 ```php
-$evaluator->defNotLvalue(function(){
-	throw new Exception("LValue required for assignments");
+$evaluator->defNotLvalue(function () {
+    throw new Exception("LValue required for assignments");
 });
 ```
 
 It is also possible to build a default method called everytime if somebody tries to invoke a method of an L-value not defined. For this, the `setDefaultCallback()` method of the `LValueBuilder` may be used:
 
 ```php
-function createVariableLValue($varName,$varObject)
- {
- 	$builder = new LValueBuilder();
- 	$builder->value(function() use ($varName,$varObject){
- 		return $varObject[$varName];
- 	});
- 	$builder->assign(function($value) use ($varName,$varObject){
- 		$varObject[$varName] = $value;
- 	});
- 	
- 	$builder->setDefaultCallback(function($method){
- 		throw new Exception("Method ".$method." is not supported for that L-value");
- 	});
- 	
- 	return $builder->getLValue();
- 	
- }
+function createVariableLValue($varName, $varObject)
+{
+    $builder = new LValueBuilder();
+    $builder->value(function () use ($varName, $varObject) {
+        return $varObject[$varName];
+    });
+    $builder->assign(function ($value) use ($varName, $varObject) {
+        $varObject[$varName] = $value;
+    });
+
+    $builder->setDefaultCallback(function ($method) {
+        throw new Exception("Method ".$method." is not supported for that L-value");
+    });
+
+    return $builder->getLValue();
+}
 
 ```
 ## Expression postprocessing
@@ -611,10 +614,10 @@ Here are some examples of expression postprocessing:
  The postprocessor may be set in the instance of `ParserSettings` itself. To setup a postprocessing, just use the method `setPostprocessOp()`:
  
 ```php
- 	$parserSettings->addParenthesis('()','(',')');
- 	$parserSettings->setPostprocessOp('()',function($expr,$op){
- 		return $expr[0];
- 	});
+$parserSettings->addParenthesis('()', '(', ')');
+$parserSettings->setPostprocessOp('()', function ($expr, $op) {
+    return $expr[0];
+});
 ```
  
 The function passed to `setPostprocessOp()` method is responsible for the postprocessing. It takes two arguments: the expression to be postprocessed and the operation to be postprocessed. It should return the expression which should be substituted instead the original operation. The whole substitution process goes from leaves of the abstract tree to the root.
@@ -622,56 +625,60 @@ The function passed to `setPostprocessOp()` method is responsible for the postpr
 A more complicated example:
 
 ```php
-	$parserSettings->addPostfixIndex('fn()','(',')',true);
-	#ensure the op ',' will have the lowest priority
-	$parserSettings->opPriority('0');
-	$parserSettings->addVariadicOp(',');
-	$parserSettings->setPostprocessOp('fn()',function($expr,$op){
-		# count($expr) is the number of arguments of the 'fn()' operation
-		# possibilities for the number of arguments:
-		# 0 - impossible
-		# 1 - fncall without any argument
-		# 2 - fncall with one or more arguments
-		# 3 or more - impossible
-		if(count($expr) != 2)return $expr;
-		$arg = $expr[1];
-		#if the second argument is not the ',' operator, we don't need to postprocess anything
-		if($arg->type() != "op" || $arg->op() != ",")return $expr; 
-		$newArguments = array_merge(array($expr[0]),$arg->arguments());
-		return Expression::create("op","fn()",$newArguments);
-	});
+$parserSettings->addPostfixIndex('fn()', '(', ')', true);
+#ensure the op ',' will have the lowest priority
+$parserSettings->opPriority('0');
+$parserSettings->addVariadicOp(',');
+$parserSettings->setPostprocessOp('fn()', function ($expr, $op) {
+    # count($expr) is the number of arguments of the 'fn()' operation
+    # possibilities for the number of arguments:
+    # 0 - impossible
+    # 1 - fncall without any argument
+    # 2 - fncall with one or more arguments
+    # 3 or more - impossible
+    if (count($expr) != 2) {
+        return $expr;
+    }
+    $arg = $expr[1];
+    #if the second argument is not the ',' operator, we don't need to postprocess anything
+    if ($arg->type() != "op" || $arg->op() != ",") {
+        return $expr;
+    }
+    $newArguments = array_merge([$expr[0]], $arg->arguments());
+    return Expression::create("op", "fn()", $newArguments);
+});
 ```
 
 The postprocessing function may also return two special values:
 
- * `NULL` - same as if the first argument would be returned. `NULL` means: "_don't change the expression_".
+ * `null` - same as if the first argument would be returned. `null` means: "_don't change the expression_".
  * `false` - the postprocessing function failed. The parsing process will end up with an error.
 
 It is also possible to postprocess variables and constants:
 
 ```php
 #convert all variables "parent" to some variable depending on the current context
-$parserSettings->setPostprocessVar(function($expr){
-	if($expr->name() == "parent"){
-		$parentVar = getCurrentParentName(); #obtain somehow the current parent name
-		return Expression::create("var",$parentVar);
-	}
-	return NULL;
+$parserSettings->setPostprocessVar(function ($expr) {
+    if ($expr->name() == "parent") {
+        $parentVar = getCurrentParentName(); #obtain somehow the current parent name
+        return Expression::create("var", $parentVar);
+    }
+    return null;
 });
 
 #convert all non-string constants to strings
-$parserSettings->setPostprocessConst(function($expr){
-	if(!is_string($expr->value())){
-		return Expression::create("const",(string)$expr->value());
-	}
-	return NULL;
+$parserSettings->setPostprocessConst(function ($expr) {
+    if (!is_string($expr->value())) {
+        return Expression::create("const", (string)$expr->value());
+    }
+    return null;
 });
 ```
 
-And it is also possible to make an univerzal postprocessing handler for all operations:
+And it is also possible to make an universal postprocessing handler for all operations:
 
 ```php
-$parserSettings->setDefaultPostprocessOp(function($expr,$op){
-	return Expression::create("op","postprocessed:$op",$expr->arguments());
+$parserSettings->setDefaultPostprocessOp(function ($expr, $op) {
+    return Expression::create("op", "postprocessed:$op", $expr->arguments());
 });
 ```
