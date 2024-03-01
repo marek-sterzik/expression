@@ -2,7 +2,7 @@
 
 namespace Sterzik\Expression;
 
-/*
+/**
  * This class is used to create custom L-values.
  * Methods of the expected L-value may be defined by
  * calling the setCallback() method or by calling
@@ -16,6 +16,9 @@ namespace Sterzik\Expression;
  * is equivalent to:
  *
  * $lvalueBuilder->value(function(){...});
+ *
+ * @method mixed value(callable $callback)
+ * @method mixed assign(callable $callback)
  */
 class LValueBuilder
 {
