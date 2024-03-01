@@ -6,72 +6,6 @@ use Sterzik\Expression\Evaluator;
 use Sterzik\Expression\Parser;
 use Sterzik\Expression\Variables;
 
-function testStructure($expr, $pattern)
-{
-    testStructureEx(null, $expr, $pattern);
-}
-
-function testStructureEx($ps, $expr, $pattern)
-{
-    Test::run(function () use ($ps, $expr, $pattern) {
-        $parsed = TestHelper::parse($expr, $ps);
-        if ($pattern === null) {
-            $pattern = false;
-        }
-        if ($pattern === false) {
-            if ($parsed === null) {
-                return true;
-            } else {
-                echo "Test failed: Expression '$expr' should not be parsable, but it is.\n";
-                return false;
-            }
-        } else {
-            if ($parsed === null) {
-                echo "Test failed: Expression '$expr' should be parsable, but it is not.\n";
-                return false;
-            } else {
-                $res = TestHelper::structure($parsed);
-                if ($res == $pattern) {
-                    return true;
-                } else {
-                    echo "Test failed: Pattern of '$expr' should be '$pattern', but is '$res'.\n";
-                    return false;
-                }
-            }
-        }
-    });
-}
-
-function testResultEx($evaluator, $expr, $result, $vars = [], $checkVars = null)
-{
-    Test::run(function () use ($evaluator, $expr, $result, $vars, $checkVars) {
-        $parsed = TestHelper::parse($expr);
-        if ($parsed === null) {
-            echo "Test failed: Cannot compile expression '$expr'\n";
-            return false;
-        }
-        $vars = new Variables($vars);
-        $res = $parsed->evaluate($vars, $evaluator);
-        $vars = $vars->asArray();
-        if ($res === $result) {
-            if ($checkVars !== null) {
-                if (!TestHelper::variablesEq($vars, $checkVars)) {
-                    $shouldBe = json_encode($checkVars);
-                    $is = json_encode($vars);
-                    echo "Test failed: variables not match: should be: $shouldBe but is: $is\n";
-                    return false;
-                }
-            }
-            return true;
-        } else {
-            $shouldBe = json_encode($result);
-            $reallyIs = json_encode($res);
-            echo "Test failed: Pattern of '$expr' failed. Should be: $shouldBe, but is: $reallyIs\n";
-            return false;
-        }
-    });
-}
-
 class Test
 {
     public static $ok;
@@ -163,7 +97,3 @@ class Test
     }
 }
 
-function testResult($expr, $result, $vars = [], $checkVars = null)
-{
-    testResultEx(null, $expr, $result, $vars, $checkVars);
-}

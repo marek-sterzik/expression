@@ -36,17 +36,4 @@ class TestHelper
         }
         return $expr->evaluate(null, static::getStructureEvaluator());
     }
-
-    public static function variablesEq($varA, $varB)
-    {
-        if (is_array($varA)) {
-            ksort($varA);
-        }
-        if (is_array($varB)) {
-            ksort($varB);
-        }
-
-        return $varA === $varB;
-    }
 }
-
