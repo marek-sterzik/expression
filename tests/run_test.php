@@ -2,6 +2,7 @@
 <?php
 require_once __DIR__."/testlib.php";
 
+use Tests\TestHelper;
 use Sterzik\Expression\ParserSettings;
 use Sterzik\Expression\Parser;
 use Sterzik\Expression\Evaluator;
@@ -10,40 +11,6 @@ use Sterzik\Expression\Expression;
 use Sterzik\Expression\ParserException;
 
 Test::begin();
-testStructure("a&b", "&&(a,b)");
-testStructure("a & not b", "&&(a,!(b))");
-testStructure("a + b * c", "+(a,*(b,c))");
-testStructure("a + b * c + d", "+(+(a,*(b,c)),d)");
-testStructure("a * b + c", "+(*(a,b),c)");
-testStructure("a + b + c", "+(+(a,b),c)");
-testStructure("a = b = c", "=(a,=(b,c))");
-testStructure("a == b? c + d : e * f", "?:(==(a,b),+(c,d),*(e,f))");
-testStructure("a + b * c + d", "+(+(a,*(b,c)),d)");
-testStructure("a - b", "-(a,b)");
-testStructure("- b", "-(b)");
-testStructure("a - - b", "-(a,-(b))");
-testStructure("a - - b ? x : y", "?:(-(a,-(b)),x,y)");
-testStructure("a,b,c", ",(a,b,c)");
-testStructure("+-a", "+(-(a))");
-testStructure("a?b:c?d:e", "?:(a,b,?:(c,d,e))");
-testStructure("a?b?c:d:e", "?:(a,?:(b,c,d),e)");
-testStructure("a?b=c:d", "?:(a,=(b,c),d)");
-
-testStructure("(a)", "a");
-testStructure("(a", null);
-testStructure("a)", null);
-testStructure("[(a)]", "[](a)");
-testStructure("([a])", "[](a)");
-testStructure("[a,b,c]", "[](a,b,c)");
-testStructure("[a,(b,c),d]", "[](a,,(b,c),d)");
-testStructure("a(b)", "fn()(a,b)");
-testStructure("a(b,c)", "fn()(a,b,c)");
-testStructure("a()", "fn()(a)");
-
-testStructure("(a,b)(c)", "fn()(,(a,b),c)");
-testStructure("(a,b)(c,d)", "fn()(,(a,b),c,d)");
-testStructure("(a,b)()", "fn()(,(a,b))");
-
 $fd = fopen(__DIR__."/expression.tst", "r");
 testStructure($fd, "+(1,*(2,3))");
 fclose($fd);

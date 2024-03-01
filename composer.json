@@ -24,6 +24,11 @@
             "Sterzik\\Expression\\": "src"
         }
     },
+    "autoload-dev" : {
+        "psr-4": {
+            "Tests\\": "tests"
+        }
+    },
     "config": {
         "allow-plugins": {
             "dealerdirect/phpcodesniffer-composer-installer": true

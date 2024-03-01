@@ -1,56 +1,10 @@
 <?php
 require_once __DIR__."/../vendor/autoload.php";
 
+use Tests\TestHelper;
 use Sterzik\Expression\Evaluator;
 use Sterzik\Expression\Parser;
 use Sterzik\Expression\Variables;
-
-class TestHelper
-{
-    public static function getStructureEvaluator()
-    {
-        $ev = new Evaluator();
-        $ev->defVar(function ($var) {
-            return $var;
-        });
-        $ev->defConst(function ($const) {
-            return json_encode($const);
-        });
-        $ev->defOpDefault(function (...$args) {
-            $op = array_shift($args);
-            return $op."(".implode(",", $args).")";
-        });
-        return $ev;
-    }
-
-    public static function parse($expr, $parserSettings = null)
-    {
-        $parser = new Parser($parserSettings);
-        return $parser->parse($expr);
-    }
-
-    public static function structure($expr)
-    {
-        if ($expr === null) {
-            return null;
-        }
-        return $expr->evaluate(null, static::getStructureEvaluator());
-    }
-
-    public static function variablesEq($varA, $varB)
-    {
-        if (is_array($varA)) {
-            ksort($varA);
-        }
-        if (is_array($varB)) {
-            ksort($varB);
-        }
-
-        return $varA === $varB;
-    }
-}
-
-
 
 function testStructure($expr, $pattern)
 {

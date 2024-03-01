@@ -452,15 +452,15 @@ final class ParserSettings
 
     private function lookupRecord($scope, $id)
     {
-        $i_i = "i_{$scope}_" . strtolower($id);
-        $i_s = "s_{$scope}_{$id}";
+        $indexI = "i_{$scope}_" . strtolower($id);
+        $indexS = "s_{$scope}_{$id}";
         $record1 = null;
         $record2 = null;
-        if (isset($this->lt[$i_i]) && is_array($this->lt[$i_i])) {
-            $record1 = $this->lt[$i_i];
+        if (isset($this->lt[$indexI]) && is_array($this->lt[$indexI])) {
+            $record1 = $this->lt[$indexI];
         }
-        if (isset($this->lt[$i_s]) && is_array($this->lt[$i_s])) {
-            $record2 = $this->lt[$i_s];
+        if (isset($this->lt[$indexS]) && is_array($this->lt[$indexS])) {
+            $record2 = $this->lt[$indexS];
         }
         if ($record1 !== null && $record2 !== null) {
             if ($record1['type'] == ")" && $record2['type'] == ")") {
