@@ -1,4 +1,5 @@
 <?php
+
 namespace Sterzik\Expression;
 
 use ReflectionFunction;
@@ -60,7 +61,7 @@ final class Evaluator
         $this->defOp(null, $function, $passOpName);
         return $this;
     }
-    
+
     /*
      * Defines the variable handler
      */
@@ -98,7 +99,7 @@ final class Evaluator
                 if ($op === null) {
                     $key = $prefix;
                 } else {
-                    $key = $prefix."_".$op;
+                    $key = $prefix . "_" . $op;
                 }
                 if ($index === null) {
                     $index = $this->indexFunction($function);
@@ -144,9 +145,9 @@ final class Evaluator
     private function indexFunction($function, $addOne = false)
     {
         $rf = new ReflectionFunction($function);
-        $params = $rf->getNumberOfParameters()+($addOne?1:0);
-        $rqParams = $rf->getNumberOfRequiredParameters()+($addOne?1:0);
-        $variadic = $rf->isVariadic()?'var':'fix';
+        $params = $rf->getNumberOfParameters() + ($addOne ? 1 : 0);
+        $rqParams = $rf->getNumberOfRequiredParameters() + ($addOne ? 1 : 0);
+        $variadic = $rf->isVariadic() ? 'var' : 'fix';
         return "{$rqParams}_{$params}_{$variadic}";
     }
 
@@ -173,9 +174,9 @@ final class Evaluator
         $bestScore = null;
         foreach ($indices as $index) {
             list($rqp,$p,$v) = explode("_", $index);
-            $missing = ($rqp > $n)?$rqp - $n:0;
-            $nrq = ($n > $rqp && $n <= $p)?($n-$rqp):(($n > $p)?($p-$rqp):0);
-            $varp = ($n > $p)?($n - $p):0;
+            $missing = ($rqp > $n) ? $rqp - $n : 0;
+            $nrq = ($n > $rqp && $n <= $p) ? ($n - $rqp) : (($n > $p) ? ($p - $rqp) : 0);
+            $varp = ($n > $p) ? ($n - $p) : 0;
             if ($v == "fix" && $varp > 0) {
                 $nv = 1;
             } else {
@@ -205,7 +206,7 @@ final class Evaluator
     {
         return $this->callFunction("var", null, [$name,$variables], function () use ($variables, $name) {
             if (is_array($variables) || is_a($variables, "ArrayAccess")) {
-                return isset($variables[$name])?$variables[$name]:null;
+                return isset($variables[$name]) ? $variables[$name] : null;
             }
         }, true);
     }
@@ -220,7 +221,7 @@ final class Evaluator
         if ($op === null) {
             $keys = [$prefix];
         } else {
-            $keys = [$prefix."_".$op,$prefix];
+            $keys = [$prefix . "_" . $op,$prefix];
         }
         foreach ($keys as $key) {
             if (isset($this->ops[$key])) {

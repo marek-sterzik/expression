@@ -1,4 +1,5 @@
 <?php
+
 namespace Sterzik\Expression\Priv;
 
 use Exception;
@@ -75,7 +76,7 @@ class ProtoExpression
     {
         $n = count($this->subExpressions);
         if ($n > 0) {
-            $this->subExpressions[$n-1] = $expr;
+            $this->subExpressions[$n - 1] = $expr;
             $expr->setParent($this);
         }
     }
@@ -109,7 +110,7 @@ class ProtoExpression
 
     public function id()
     {
-        return isset($this->data['id'])?$this->data['id']:null;
+        return isset($this->data['id']) ? $this->data['id'] : null;
     }
 
     public function getNumSubexpressions()
@@ -140,12 +141,12 @@ class ProtoExpression
 
     public function getPriority()
     {
-        return isset($this->data['priority'])?$this->data['priority']:null;
+        return isset($this->data['priority']) ? $this->data['priority'] : null;
     }
 
     public function getArity()
     {
-        return isset($this->data['arity'])?$this->data['arity']:null;
+        return isset($this->data['arity']) ? $this->data['arity'] : null;
     }
 
     public static function createPrefix($alias, $priority, $arity)

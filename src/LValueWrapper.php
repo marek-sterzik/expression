@@ -1,4 +1,5 @@
 <?php
+
 namespace Sterzik\Expression;
 
 /*
@@ -36,12 +37,12 @@ class LValueWrapper
     public function lvalue()
     {
         $result = $this->expr->evaluateExpression($this->variables, $this->evaluator);
-        if (!is_a($result, __NAMESPACE__.'\\LValue')) {
-            if (is_a($result, __NAMESPACE__.'\\LValueWrapper')) {
+        if (!is_a($result, __NAMESPACE__ . '\\LValue')) {
+            if (is_a($result, __NAMESPACE__ . '\\LValueWrapper')) {
                 $result = $result->lvalue();
             } else {
                 $l = new LValueBuilder();
-                
+
                 $l->value(function () use ($result) {
                     return $result;
                 });

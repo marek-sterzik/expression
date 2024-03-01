@@ -1,4 +1,5 @@
 <?php
+
 namespace Sterzik\Expression;
 
 /*
@@ -25,7 +26,7 @@ class StringCharReader extends CharReader
      */
     public function read()
     {
-        if ($this->index>=$this->len) {
+        if ($this->index >= $this->len) {
             return null;
         }
         return $this->string[$this->index++];

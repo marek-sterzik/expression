@@ -1,4 +1,5 @@
 <?php
+
 namespace Sterzik\Expression;
 
 use ArrayAccess;
@@ -43,7 +44,7 @@ class Variables implements ArrayAccess, Countable, IteratorAggregate
 
     public function offsetGet($offset)
     {
-        return isset($this->vars[$offset])?$this->vars[$offset]:null;
+        return isset($this->vars[$offset]) ? $this->vars[$offset] : null;
     }
 
     public function offsetSet($offset, $value)

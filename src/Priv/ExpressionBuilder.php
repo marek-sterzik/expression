@@ -1,4 +1,5 @@
 <?php
+
 namespace Sterzik\Expression\Priv;
 
 use Sterzik\Expression\ParserException;
@@ -55,7 +56,7 @@ class ExpressionBuilder
     public function getContext()
     {
         return [
-            "mode" => $this->valueMode?'value':'operator',
+            "mode" => $this->valueMode ? 'value' : 'operator',
         ];
     }
 
@@ -91,7 +92,7 @@ class ExpressionBuilder
     {
         $this->operatorModeExpected();
         $this->pointerToBlocking();
-        if ($this->pointer === null || $this->pointer->id() !== $id || $this->pointer->getNumSubexpressions() != $i+1) {
+        if ($this->pointer === null || $this->pointer->id() !== $id || $this->pointer->getNumSubexpressions() != $i + 1) {
             throw new ParserException("cannot add part of a multinary operator: operator is not accessible");
         }
         $this->valueMode = true;

@@ -1,4 +1,5 @@
 <?php
+
 namespace Sterzik\Expression;
 
 use Exception;
@@ -70,7 +71,7 @@ class Parser
     public function throwExceptions($throwExceptions = true)
     {
         $tmp = $this->throwExceptions;
-        $this->throwExceptions = $throwExceptions?true:false;
+        $this->throwExceptions = $throwExceptions ? true : false;
         return $tmp;
     }
 

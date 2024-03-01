@@ -1,0 +1,5 @@
+#!/bin/bash
+
+cd "$(dirname "$(which "$0")")/.."
+
+vendor/bin/phpcbf --standard=PSR12 src

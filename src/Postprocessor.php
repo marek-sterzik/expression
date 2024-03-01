@@ -92,7 +92,7 @@ class Postprocessor
 
     private function getIndex($c1, $c2)
     {
-        return $c1."_".(($c2===null)?('n'):('_'.$c2));
+        return $c1 . "_" . (($c2 === null) ? ('n') : ('_' . $c2));
     }
 
     private function invoke($c1, $c2, &$invoked, ...$arguments)

@@ -1,4 +1,5 @@
 <?php
+
 namespace Sterzik\Expression;
 
 use ArrayAccess;
@@ -75,7 +76,7 @@ class OperationExpression extends Expression implements ArrayAccess, Countable, 
 
     public function offsetGet($offset)
     {
-        return isset($this->subs[$offset])?$this->subs[$offset]:null;
+        return isset($this->subs[$offset]) ? $this->subs[$offset] : null;
     }
 
     public function offsetSet($offset, $value)
@@ -92,7 +93,7 @@ class OperationExpression extends Expression implements ArrayAccess, Countable, 
         foreach ($args as $arg) {
             if (is_array($arg)) {
                 $subs = array_merge($subs, $this->findSubs($arg));
-            } elseif (is_a($arg, __NAMESPACE__.'\\Expression')) {
+            } elseif (is_a($arg, __NAMESPACE__ . '\\Expression')) {
                 $subs[] = $arg;
             } else {
                 throw new Exception("Invalid arguments when creating OperationExpression");

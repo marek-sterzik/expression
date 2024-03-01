@@ -1,4 +1,5 @@
 <?php
+
 namespace Sterzik\Expression;
 
 /*
@@ -20,7 +21,7 @@ class LValueBuilder
 {
     private $callbacks;
     private $defaultCallback;
-    
+
     /*
      * Constructs a new L-value builder
      */
@@ -42,7 +43,7 @@ class LValueBuilder
             };
         }
         if ($operation === null) {
-            $this->defaultCallback = ($callback !== null)?$callback:false;
+            $this->defaultCallback = ($callback !== null) ? $callback : false;
         } elseif (is_string($operation)) {
             $this->callbacks[$operation] = $callback;
         }

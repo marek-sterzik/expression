@@ -1,4 +1,5 @@
 <?php
+
 namespace Sterzik\Expression\Priv;
 
 use Sterzik\Expression\ParserSettings;
@@ -57,12 +58,12 @@ class ParserPreset extends AbstractPreset
 
         $ps->addParenthesis("()", '(', ')', false);
         $ps->addParenthesis("[]", '[', ']', true);
-        
+
         $ps->addPostfixIndex("fn()", '(', ')', true);
-        
+
         $ps->addConstant("true", true);
         $ps->addConstant("false", false);
-        
+
         $ps->setPostprocessor("default");
         return $ps;
     }

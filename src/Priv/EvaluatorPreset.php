@@ -1,4 +1,5 @@
 <?php
+
 namespace Sterzik\Expression\Priv;
 
 use Sterzik\Expression\Evaluator;
@@ -64,7 +65,7 @@ class EvaluatorPreset extends AbstractPreset
             return $a->value() || $b->value();
         });
         $ev->defOpEx("?:", function ($a, $b, $c) {
-            return $a->value()?$b->value():$c->value();
+            return $a->value() ? $b->value() : $c->value();
         });
         $ev->defOpEx("=", function ($a, $b) {
             $v = $b->value();
@@ -74,7 +75,7 @@ class EvaluatorPreset extends AbstractPreset
         $ev->defVar(function ($var, $vars) {
             if (!is_object($vars)) {
                 if (is_array($vars)) {
-                    return isset($vars[$var])?$vars[$var]:null;
+                    return isset($vars[$var]) ? $vars[$var] : null;
                 } else {
                     return $vars;
                 }
@@ -82,7 +83,7 @@ class EvaluatorPreset extends AbstractPreset
                 if (is_a($vars, "ArrayAccess")) {
                     $l = new LValueBuilder();
                     $l->value(function () use ($var, $vars) {
-                        return isset($vars[$var])?$vars[$var]:null;
+                        return isset($vars[$var]) ? $vars[$var] : null;
                     });
                     $l->assign(function ($val) use ($var, $vars) {
                         $vars[$var] = $val;

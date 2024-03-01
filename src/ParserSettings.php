@@ -1,4 +1,5 @@
 <?php
+
 namespace Sterzik\Expression;
 
 use Exception;
@@ -64,7 +65,7 @@ final class ParserSettings
      */
     public function caseSensitive($cs = true)
     {
-        $this->cs = $cs?true:false;
+        $this->cs = $cs ? true : false;
         return $this;
     }
 
@@ -358,7 +359,7 @@ final class ParserSettings
 
     private function uuid()
     {
-        return "uuid:".($this->uuid++);
+        return "uuid:" . ($this->uuid++);
     }
 
     private function addCloseParenthesisRecord($record)
@@ -391,7 +392,7 @@ final class ParserSettings
 
     private function addRecord($record)
     {
-        
+
         $x = $this->calcIndices($record);
         $indices  = $x['indices'];
         $blocking = $x['blocking'];
@@ -424,7 +425,7 @@ final class ParserSettings
         if (!is_array($scopes)) {
             $scopes = [$scopes];
         }
-        
+
         $indices = [];
         $blocking = [];
 
@@ -449,7 +450,7 @@ final class ParserSettings
 
     private function lookupRecord($scope, $id)
     {
-        $i_i = "i_{$scope}_".strtolower($id);
+        $i_i = "i_{$scope}_" . strtolower($id);
         $i_s = "s_{$scope}_{$id}";
         $record1 = null;
         $record2 = null;

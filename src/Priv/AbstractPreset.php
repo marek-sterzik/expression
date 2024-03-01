@@ -1,4 +1,5 @@
 <?php
+
 namespace Sterzik\Expression\Priv;
 
 /*

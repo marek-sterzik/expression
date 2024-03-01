@@ -1,4 +1,5 @@
 <?php
+
 namespace Sterzik\Expression\Priv;
 
 use Sterzik\Expression\Postprocessor;
@@ -28,7 +29,7 @@ class PostprocessorPreset extends AbstractPreset
             if ($op == "fn()" && $n == 1) {
                 return $expr;
             }
-            $sub = $expr[$n-1];
+            $sub = $expr[$n - 1];
 
             if ($sub->type() == "op" && $sub->op() == ",") {
                 $x = [];

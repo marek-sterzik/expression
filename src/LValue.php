@@ -1,4 +1,5 @@
 <?php
+
 namespace Sterzik\Expression;
 
 /*
@@ -11,7 +12,6 @@ namespace Sterzik\Expression;
  */
 abstract class LValue
 {
-    
     /*
      * This method should return the value stored in the variable,
      * associated with that L-value

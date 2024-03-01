@@ -1,4 +1,5 @@
 <?php
+
 namespace Sterzik\Expression\Priv;
 
 /*
@@ -30,7 +31,7 @@ class TokenReader
             $id = $char;
             $char = $this->charReader->read();
             while ($char !== null && preg_match("/[a-zA-Z0-9_]/", $char)) {
-                $id.=$char;
+                $id .= $char;
                 $char = $this->charReader->read();
             }
             $this->charReader->unread($char);
@@ -102,7 +103,7 @@ class TokenReader
                 if ($char === null) {
                     $char = "";
                 }
-                $this->charReader->unread($unread.$char);
+                $this->charReader->unread($unread . $char);
 
                 return Token::get("operator", $fo);
             }

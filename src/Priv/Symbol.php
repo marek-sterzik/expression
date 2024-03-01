@@ -1,4 +1,5 @@
 <?php
+
 namespace Sterzik\Expression\Priv;
 
 /*
@@ -27,6 +28,6 @@ class Symbol
 
     public function data($key)
     {
-        return isset($this->data[$key])?$this->data[$key]:null;
+        return isset($this->data[$key]) ? $this->data[$key] : null;
     }
 }

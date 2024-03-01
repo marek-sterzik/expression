@@ -1,4 +1,5 @@
 <?php
+
 namespace Sterzik\Expression\Priv;
 
 /*
@@ -29,7 +30,7 @@ trait DefaultStorageTrait
         if (!is_string($data)) {
             $data = null;
         }
-        
+
         if ($data === null) {
             if (static::$defaultStorage === null) {
                 static::$defaultStorage = static::getPreset("default");
@@ -65,7 +66,7 @@ trait DefaultStorageTrait
     {
         $class = static::$presetClass;
         if (substr($class, 0, 1) != '\\') {
-            $class = __NAMESPACE__.'\\'.$class;
+            $class = __NAMESPACE__ . '\\' . $class;
         }
         $function = [$class,"get"];
         $result = $function($preset);

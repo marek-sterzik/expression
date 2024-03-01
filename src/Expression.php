@@ -1,4 +1,5 @@
 <?php
+
 namespace Sterzik\Expression;
 
 /*
@@ -121,7 +122,7 @@ abstract class Expression
     {
         $evaluator = Evaluator::get($evaluator);
         $ret = $this->evaluateExpression($variables, $evaluator);
-        if (is_a($ret, __NAMESPACE__.'\\LValue')) {
+        if (is_a($ret, __NAMESPACE__ . '\\LValue')) {
             $ret = $ret->value();
         }
         return $ret;
@@ -146,13 +147,13 @@ abstract class Expression
         if (isset(static::$shortcutClasses[$class])) {
             $class = static::$shortcutClasses[$class];
         }
-        $class = __NAMESPACE__.'\\'.$class;
+        $class = __NAMESPACE__ . '\\' . $class;
         if (!is_a($class, __CLASS__, true)) {
             return null;
         }
         return $class;
     }
-    
+
     abstract protected static function restoreExpression($data);
     abstract protected function dumpExpression();
     abstract protected function evaluateExpression($variables, $evaluator);
