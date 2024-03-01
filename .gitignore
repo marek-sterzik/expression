@@ -1,0 +1,8 @@
+# composer vendor directory
+/vendor
+
+/composer.lock
+
+# editors
+.swp
+.*.swp

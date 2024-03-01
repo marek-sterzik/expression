@@ -1,0 +1,15 @@
+This is just the list of symbols which may be accepted by the expression builder.
+
+Symbol::get("multinary",["uuid" => "uuid", "alias" => "someAlias", "priority" => 5, "i" => 0, "n" => 1, "arity" => "l"])
+Symbol::get("variadic",["uuid" => "uuid", "alias" => "someAlias", "priority" => 5, "arity" => "l"])
+
+Symbol::get("(",["uuid" => "uuid", "alias" => "someAlias"])
+Symbol::get("prefix(",["uuid" => "uuid", "alias" => "someAlias", "priority" => 5, "arity" => "l"])
+Symbol::get("postfix(",["uuid" => "uuid", "alias" => "someAlias", "priority" => 5, "arity" => "l"])
+Symbol::get(")",["uuids" => ["uuid1","uuid2"]])
+
+Symbol::get("prefix",["alias" => "someAlias", "priority" => 5, "arity" => "l"])
+Symbol::get("postfix",["alias" => "someAlias", "priority" => 5, "arity" => "l"])
+
+Symbol::get("constant", ["value" => 123])
+Symbol::get("variable", ["name" => "someVariable"])
