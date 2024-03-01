@@ -12,7 +12,7 @@ class Symbol
 
     public static function get($type, $data)
     {
-        return new static($type, $data);
+        return new self($type, $data);
     }
 
     public function __construct($type, $data)

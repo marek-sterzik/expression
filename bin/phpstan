@@ -1,0 +1,18 @@
+#!/bin/bash
+
+cd "$(dirname "$(which "$0")")/.."
+
+phpstan() {
+    vendor/bin/phpstan analyse --level 1 src
+}
+
+suppress_output=0
+if [ "$1" == "--quiet" -o "$1" == "-q" ]; then
+    suppress_output=1
+fi
+
+if [ "$suppress_output" = 1 ]; then
+    phpstan > /dev/null 2>&1
+else
+    phpstan
+fi

@@ -39,7 +39,7 @@ class VariableExpression extends Expression
         if (!is_string($variable)) {
             return null;
         }
-        return new static($variable);
+        return new self($variable);
     }
 
     public function dumpExpression()

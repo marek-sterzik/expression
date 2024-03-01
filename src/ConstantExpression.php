@@ -44,7 +44,7 @@ class ConstantExpression extends Expression
             return null;
         }
         $constant = array_shift($data);
-        return new static($constant);
+        return new self($constant);
     }
 
     public function dumpExpression()

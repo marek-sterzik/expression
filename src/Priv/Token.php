@@ -12,7 +12,7 @@ class Token
 
     public static function get($type, $data)
     {
-        return new static($type, $data);
+        return new self($type, $data);
     }
 
     private function __construct($type, $data)
@@ -23,7 +23,7 @@ class Token
 
     public static function constant($value)
     {
-        return new static("constant", ["value" => $value]);
+        return new self("constant", ["value" => $value]);
     }
 
     public function type()

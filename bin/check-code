@@ -2,7 +2,7 @@
 
 cd "$(dirname "$(which "$0")")/.."
 
-commands="phpcs phpunit"
+commands="phpcs phpstan phpunit"
 
 run () {
     bin="bin/$1"

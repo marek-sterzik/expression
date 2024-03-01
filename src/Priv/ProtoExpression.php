@@ -151,7 +151,7 @@ class ProtoExpression
 
     public static function createPrefix($alias, $priority, $arity)
     {
-        return new static(
+        return new self(
             "prefix",
             ["alias" => $alias, "priority" => $priority, "arity" => $arity]
         );
@@ -159,7 +159,7 @@ class ProtoExpression
 
     public static function createPostfix($alias, $priority)
     {
-        return new static(
+        return new self(
             "postfix",
             ["alias" => $alias,"priority" => $priority]
         );
@@ -167,7 +167,7 @@ class ProtoExpression
 
     public static function createOperator($id, $alias, $priority, $arity, $n)
     {
-        return new static(
+        return new self(
             "operator",
             ["id" => $id, "alias" => $alias,"priority" => $priority, "arity" => $arity, "parts" => $n]
         );
@@ -175,7 +175,7 @@ class ProtoExpression
 
     public static function createVariadicOperator($id, $alias, $priority, $arity)
     {
-        return new static(
+        return new self(
             "variadic",
             ["id" => $id, "alias" => $alias,"priority" => $priority, "arity" => $arity]
         );
@@ -183,7 +183,7 @@ class ProtoExpression
 
     public static function createParenthesis($id, $alias, $allowEmpty)
     {
-        return new static(
+        return new self(
             "par-value",
             ["id" => $id, "alias" => $alias, "empty" => $allowEmpty]
         );
@@ -191,7 +191,7 @@ class ProtoExpression
 
     public static function createPrefixIndex($id, $alias, $priority, $arity, $allowEmpty)
     {
-        return new static(
+        return new self(
             "par-prefix",
             ["id" => $id, "alias" => $alias, "priority" => $priority, "arity" => $arity, "empty" => $allowEmpty]
         );
@@ -199,7 +199,7 @@ class ProtoExpression
 
     public static function createPostfixIndex($id, $alias, $priority, $allowEmpty)
     {
-        return new static(
+        return new self(
             "par-postfix",
             ["id" => $id, "alias" => $alias, "priority" => $priority, "empty" => $allowEmpty]
         );
@@ -207,7 +207,7 @@ class ProtoExpression
 
     public static function createVariable($name)
     {
-        return new static(
+        return new self(
             "variable",
             ["name" => $name]
         );
@@ -215,7 +215,7 @@ class ProtoExpression
 
     public static function createConstant($constant)
     {
-        return new static(
+        return new self(
             "constant",
             ["value" => $constant]
         );

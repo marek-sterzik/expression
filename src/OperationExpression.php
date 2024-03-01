@@ -124,7 +124,7 @@ class OperationExpression extends Expression implements ArrayAccess, Countable, 
             }
             $subs[] = $x;
         }
-        return new static($op, $subs);
+        return new self($op, $subs);
     }
 
     public function dumpExpression()
