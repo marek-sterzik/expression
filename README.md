@@ -83,7 +83,7 @@ As of now, there are two predefined instances of the class ```ParserSettings```.
 
 ```php
 $defaultParserSettings = ParserSettings::get("default");
-$emptyParserSettings = ParserSettings::get("empty");
+$emptyParserSettings = ParserSettings::get("createEmpty");
 ```
 
 While the default parser settings contain a predefined _default_ list of operators, the empty parser settings is completely clear to define custom operators.
@@ -92,7 +92,7 @@ While the default parser settings contain a predefined _default_ list of operato
 ### Defining custom operators
 
 ```php
-$ps = ParserSettings::get("empty");
+$ps = ParserSettings::get("createEmpty");
 $ps->opPriority(1);
 $ps->opArity("L");
 $ps->addOp("+");
@@ -388,7 +388,7 @@ It is necessary to understand, that any evaluator depends on the parser used. It
  
  # obtain the empty evaluator
  # (no operations are defined there)
- $evaluator = Evaluator::get("empty");
+ $evaluator = Evaluator::get("createEmpty");
 ```
 
 If you will build a custom evaluator, it is a good idea to begin with the empty evaluator.

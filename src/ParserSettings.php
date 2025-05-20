@@ -302,7 +302,7 @@ final class ParserSettings
      */
     public function addConstant($identifier, $value)
     {
-        $this->checkId($identifier);
+        $this->checkIdOp($identifier);
         $record = [
             "scope" => "value",
             "id" => $identifier,

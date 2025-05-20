@@ -69,6 +69,7 @@ final class StructureTest extends TestCase
             ["<>b", "<>(b)"],
             ["<<a>>b", "<<>>(b,a)"],
             ["<<>>b", null],
+            ["*", '"*"'],
         ];
     }
 
@@ -127,6 +128,7 @@ final class StructureTest extends TestCase
             $this->specialParser->addParenthesis("be2", "beg", "end", true);
             $this->specialParser->addPrefixIndex("<>", "<", ">", true);
             $this->specialParser->addPrefixIndex("<<>>", "<<", ">>", false);
+            $this->specialParser->addConstant("*", "*");
         }
         return $this->specialParser;
     }

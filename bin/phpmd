@@ -2,8 +2,8 @@
 
 cd "$(dirname "$(which "$0")")/.."
 
-phpstan() {
-    vendor/bin/phpstan analyse --level 2 src
+phpmd() {
+    vendor/bin/phpmd src ansi cleancode,codesize,controversial,design,naming,unusedcode
 }
 
 suppress_output=0
@@ -12,7 +12,7 @@ if [ "$1" == "--quiet" -o "$1" == "-q" ]; then
 fi
 
 if [ "$suppress_output" = 1 ]; then
-    phpstan > /dev/null 2>&1
+    phpmd > /dev/null 2>&1
 else
-    phpstan
+    phpmd
 fi
