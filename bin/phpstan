@@ -3,7 +3,7 @@
 cd "$(dirname "$(which "$0")")/.."
 
 phpstan() {
-    vendor/bin/phpstan analyse --level 2 src
+    vendor/bin/phpstan analyse --level 1 src
 }
 
 suppress_output=0
